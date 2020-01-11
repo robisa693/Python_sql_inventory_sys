@@ -27,11 +27,14 @@ def print_sql_table(con, table_name):
 
 
 def add_item_to_inventory_table(con, tablename, date, name):
-    sql_cursor = con.cursor()
-    sql = f''' INSERT OR IGNORE INTO {tablename}(name,update_date,count)
-                  VALUES('{name.lower()}','{date}', 0) '''
-    sql_cursor.execute(sql)
-    con.commit()
+    if name != "":
+        sql_cursor = con.cursor()
+        sql = f''' INSERT OR IGNORE INTO {tablename}(name,update_date,count)
+                      VALUES('{name.lower()}','{date}', 0) '''
+        sql_cursor.execute(sql)
+        con.commit()
+    else:
+        print("Name not specified")
 
 def increment_count_of_item(con, id, table_name, subtract=False):
     sql_cursor = con.cursor()
@@ -40,9 +43,9 @@ def increment_count_of_item(con, id, table_name, subtract=False):
     sql_cursor.execute(sqlite_select_query)
     rows = sql_cursor.fetchall()
     for row in rows:
-        print(f'{row[0]} and {id}')
+       # print(f'{row[0]} and {id}')
         if row[0] == int(id):
-            print('Found item')
+        #    print('Found item')
             current_count = row[2]
             name = row[1]
             if current_count == 0 and subtract == True:

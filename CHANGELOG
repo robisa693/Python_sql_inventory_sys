@@ -11,3 +11,5 @@ Version 0.0.4
 		 Now use ID instead of name the modify item
 Version 0.0.4.1
 	CHANGED: Made print prettier x2
+Version 0.0.4.2
+	BUGFIX: Can no longer add empty named items
