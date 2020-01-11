@@ -6,6 +6,6 @@ Version 0.0.2
 	different functions
 Version 0.0.3
 	FIXED: crash when subtracting from item count 0
-Version 0.0.4 not pushed
+Version 0.0.4
 	CHANGED: made print prettier
 		 Now use ID instead of name the modify item
