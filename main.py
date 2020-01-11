@@ -20,8 +20,10 @@ def print_sql_table(con, table_name):
     sqlite_select_query = (f"SELECT * from {table_name}")
     sql_cursor.execute(sqlite_select_query)
     rows = sql_cursor.fetchall()
+
+    print("ID  Count  Last Updated        Name   ")
     for row in rows:
-        print(f'ID: {row[0]}, name: {row[1]}, Count: {row[2]}, last updated at {row[3]}')
+        print(f'{row[0]}  |{row[2]}     |{row[3]}   |{row[1]}')
 
 
 def add_item_to_inventory_table(con, tablename, date, name):
