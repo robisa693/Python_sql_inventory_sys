@@ -1,3 +1,6 @@
 Version 0.0.1
 	ADDED: Initiated database with sqlite, backend for creating new items,
 	incrementing items and updating their date.
+Version 0.0.2
+	ADDED: Decrement ability and a little meny making it easier to test
+	different functions
