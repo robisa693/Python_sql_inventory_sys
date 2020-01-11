@@ -21,7 +21,7 @@ def print_sql_table(con, table_name):
     sql_cursor.execute(sqlite_select_query)
     rows = sql_cursor.fetchall()
     for row in rows:
-        print(row)
+        print(f'ID: {row[0]}, name: {row[1]}, Count: {row[2]}, last updated at {row[3]}')
 
 
 def add_item_to_inventory_table(con, tablename, date, name):
@@ -31,17 +31,18 @@ def add_item_to_inventory_table(con, tablename, date, name):
     sql_cursor.execute(sql)
     con.commit()
 
-def increment_count_of_item(con, name, table_name, subtract=False):
+def increment_count_of_item(con, id, table_name, subtract=False):
     sql_cursor = con.cursor()
-    id = None
     new_count = None
     sqlite_select_query = (f"SELECT * from {table_name}")
     sql_cursor.execute(sqlite_select_query)
     rows = sql_cursor.fetchall()
     for row in rows:
-        if row[1] == name:
-            id = row[0]
+        print(f'{row[0]} and {id}')
+        if row[0] == int(id):
+            print('Found item')
             current_count = row[2]
+            name = row[1]
             if current_count == 0 and subtract == True:
                 print('Can not subtract from 0, breaking function')
                 return
@@ -56,8 +57,6 @@ def increment_count_of_item(con, name, table_name, subtract=False):
         sql_update_query = f"""Update {table_name} set count = {new_count}, update_date = '{new_date}' where id = {id}"""
         print(f'Updating item {name} in table {table_name} with new count of {new_count} and new time of {new_date}')
         sql_cursor.execute(sql_update_query)
-
-        print(f'Updating item {name} in table {table_name} with new count of {new_count} and new time of {new_date}')
     else:
         print("item not found")
     con.commit()
@@ -94,13 +93,13 @@ def main():
             print_sql_table(con, tablename)
 
         if inputs == "2":
-            item_name = input("name of item to increment: ")
-            increment_count_of_item(con, item_name, tablename)
+            item_ID = input("ID of item to increment: ")
+            increment_count_of_item(con, item_ID, tablename)
             print_sql_table(con, tablename)
 
         if inputs == "3":
-            item_name = input("name of item to decrement: ")
-            increment_count_of_item(con, item_name, tablename, subtract=True)
+            item_ID = input("ID of item to decrement: ")
+            increment_count_of_item(con, item_ID, tablename, subtract=True)
         if inputs == "4":
             print_sql_table(con, tablename)
         if inputs == "5":
