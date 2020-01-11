@@ -42,6 +42,9 @@ def increment_count_of_item(con, name, table_name, subtract=False):
         if row[1] == name:
             id = row[0]
             current_count = row[2]
+            if current_count == 0 and subtract == True:
+                print('Can not subtract from 0, breaking function')
+                return
     if id != None:
         if subtract == True and current_count > 0:
             new_count = current_count - 1
@@ -51,7 +54,9 @@ def increment_count_of_item(con, name, table_name, subtract=False):
             print("Could not increment/subtract. Item might already be 0")
         new_date = str(time.strftime("%Y-%m-%d %H:%M"))
         sql_update_query = f"""Update {table_name} set count = {new_count}, update_date = '{new_date}' where id = {id}"""
+        print(f'Updating item {name} in table {table_name} with new count of {new_count} and new time of {new_date}')
         sql_cursor.execute(sql_update_query)
+
         print(f'Updating item {name} in table {table_name} with new count of {new_count} and new time of {new_date}')
     else:
         print("item not found")
@@ -99,7 +104,7 @@ def main():
         if inputs == "4":
             print_sql_table(con, tablename)
         if inputs == "5":
-            loop=False
+            loop = False
 
     con.commit()
     print_sql_table(con, tablename)

@@ -4,3 +4,5 @@ Version 0.0.1
 Version 0.0.2
 	ADDED: Decrement ability and a little meny making it easier to test
 	different functions
+Version 0.0.3
+	FIXED: crash when subtracting from item count 0
