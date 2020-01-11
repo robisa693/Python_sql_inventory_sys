@@ -1,0 +1,3 @@
+Version 0.0.1
+	ADDED: Initiated database with sqlite, backend for creating new items,
+	incrementing items and updating their date.
